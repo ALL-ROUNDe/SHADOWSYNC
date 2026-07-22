@@ -84,7 +84,7 @@ Search bar for quick filtering
 
 File list includes icons by extension and formatted sizes
 
-🔧 7. Technical Highlights
+🔧 6. Technical Highlights
 Persistent Users: users.json only created if missing — no overwrites
 
 Admin access control: Role-based restrictions
