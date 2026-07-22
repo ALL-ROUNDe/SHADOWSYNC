@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/blackforest favicon.png') }}">
+  <title>Admin Dashboard – SHADOWSYNC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/shadowroot-theme.css') }}">
+</head>
+<body>
+  <img src="{{ url_for('static', filename='images/shadow sync logo.png') }}" class="logo" alt="Logo">
+  <h1>Admin Dashboard</h1>
+
+  <div class="navbar-links">
+    <a href="{{ url_for('folders') }}">← Back to folders</a> | <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for c, m in messages %}
+      <div class="flash">{{ m }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <h2>Create New User</h2>
+  <!--<form method="post" action="{{ url_for('register') }}">
+    <input name="username" placeholder="Username" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <select name="role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button type="submit">Register</button>
+  </form> -->
+
+ <form method="post" action="{{ url_for('register') }}">
+  <div class="container">
+    <input required type="text" name="username" class="input">
+    <label class="label">Username</label>
+  </div>
+
+  <div class="container">
+    <input required type="password" name="password" class="input">
+    <label class="label">Password</label>
+  </div>
+
+  <div class="container">
+    <label for="role">Role</label>
+    <select name="role" required>
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+  </div>
+
+  <button type="submit">Register</button>
+</form>
+
+
+ <!-- <h2>All Users</h2>
+  <ul>
+    {% for user, data in users.items() %}
+      <li>{{ user }} – {{ data.role }}
+        {% if user != 'admin' %}
+          <form method="post" action="{{ url_for('delete_user', username=user) }}" style="display:inline;">
+            <button type="submit" onclick="return confirm('Delete {{ user }}?');">🗑 Delete</button>
+          </form>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul> -->
+
+
+  <h2>All Users</h2>
+<div class="list-container">
+  {% for user, data in users.items() %}
+    <div class="list-item">
+      <span class="username">{{ user }}</span>
+      <span class="role">{{ data.role }}</span>
+      {% if user != 'admin' %}
+        <form method="post" action="{{ url_for('delete_user', username=user) }}" style="display:inline;">
+          <button class="delete-btn" type="submit" onclick="return confirm('Delete {{ user }}?');">🗑 Delete</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+</body>
+</html>

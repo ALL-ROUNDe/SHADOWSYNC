@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Upload Progress – {{ folder_key }}</title>
+<h2>Upload Progress for {{ folder_key }}</h2>
+<progress id="file-progress" value="0" max="100" style="width:98%"></progress>
+<div id="status">Waiting for upload...</div>
+
+<script>
+const socket = io(`http://${window.location.hostname}:5050/upload-progress`);
+socket.on('progress', (data) => {
+  document.getElementById('file-progress').value = data.percent;
+  document.getElementById('status').textContent = `Uploading ${data.file}: ${data.percent}%`;
+});
+
+ws.onclose = () => {
+  document.getElementById('status').textContent = 'Upload done or connection closed';
+};
+</script>

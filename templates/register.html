@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/blackforest favicon.png') }}">
+  <title>Register – SHADOWSYNC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<img src="{{url_for('static',filename='images/shadow sync logo.png')}}" class="logo" alt="Logo">
+<h1>Create New User</h1>
+<p><a href="{{ url_for('folders') }}">← Back to folders</a></p>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for c, m in messages %}
+  <div class="flash {{ c }}">{{ m }}</div>
+{% endfor %}
+{% endwith %}
+
+<form method="post">
+  <input name="username" placeholder="Username" required>
+  <input name="password" type="password" placeholder="Password" required>
+  <select name="role">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select>
+  <button type="submit">Register</button>
+</form>
+
+<h2>Current Users</h2>
+<ul>
+  {% for user, data in users.items() %}
+    <li>{{ user }} – {{ data.role }}</li>
+  {% endfor %}
+</ul>
+</body>
+</html>

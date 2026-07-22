@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/blackforest favicon.png') }}">
+  <title>{{ folder_key }} – SHADOWSYNC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/shadowroot-theme.css') }}">
+</head>
+<body>
+
+  <!-- 🔍 Search -->
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="🔍 Search files...">
+  </div>
+
+  <!-- 🌌 Logo + Header -->
+  <img src="{{ url_for('static', filename='images/shadow sync logo.png') }}" class="logo" alt="Logo">
+  <h1>{{ folder_key }}</h1>
+  <div class="navbar-links">
+    <a href="{{ url_for('folders') }}">← Back to folders</a>
+  </div>
+
+  <!-- 🔔 Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for c, m in messages %}
+      <div class="flash">{{ m }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- 🖱️ Upload Dropzone -->
+<div class="upload-section">
+  <div class="upload-dropzone" id="dropzone-{{ folder_key }}">
+    <p>Drag & drop files here or click to upload</p>
+    <form id="form-{{ folder_key }}" method="post" action="{{ url_for('upload', folder_key=folder_key) }}" enctype="multipart/form-data">
+      <input type="file" name="file" id="file-input-{{ folder_key }}" multiple style="display:none;">
+      <button type="submit" id="upload-btn-{{ folder_key }}" style="display:none; margin-top: 10px;">Upload</button>
+      <progress id="upload-progress" value="0" max="100" style="width: 100%; display: none;"></progress>
+      <p id="upload-status" style="font-size: 14px; color: #ccc;"></p>
+    </form>
+  </div>  
+</div>
+
+  <!-- 📄 File List -->
+  <h3>Files</h3>
+  {% set total_files = files|length %}
+  {% set total_size = files|map(attribute='size_raw')|sum %}
+  {% if role == 'admin' %}
+    <p>{{ total_files }} file{{ 's' if total_files != 1 else '' }} – {{ (total_size / 1024 / 1024) | round(2) }} MB</p>
+  {% else %}
+    <p>{{ total_files }} file{{ 's' if total_files != 1 else '' }}</p>
+  {% endif %}
+
+  <div class="list-container">
+    {% for f in files %}
+      {% set ext = f.name.split('.')[-1].lower() %}
+      {% set icon = '📄' %}
+      {% if ext in ['mp4', 'mkv', 'avi'] %}
+        {% set icon = '🎬' %}
+      {% elif ext in ['jpg', 'jpeg', 'png', 'gif'] %}
+        {% set icon = '🖼️' %}
+      {% elif ext in ['zip', 'rar', '7z'] %}
+        {% set icon = '🗜️' %}
+      {% elif ext in ['pdf'] %}
+        {% set icon = '📕' %}
+      {% elif ext in ['mp3', 'wav'] %}
+        {% set icon = '🎵' %}
+      {% endif %}
+
+      <div class="list-item">
+        <span class="filename">{{ icon }} {{ f.name }}</span>
+        <span class="filesize">{{ f.size }}</span>
+        <span class="filedate">{{ f.mtime }}</span>
+
+        <a class="download-btn" href="{{ url_for('download', folder_key=folder_key, filename=f.name) }}">⬇ Download</a>
+
+        {% if role == 'admin' %}
+          <form method="post" action="{{ url_for('delete_file', folder_key=folder_key, filename=f.name) }}" style="display:inline;">
+            <button class="delete-btn" onclick="return confirm('Delete {{ f.name }}?');">🗑 Delete</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- 📜 Scripts -->
+  <script>
+  const dz = document.getElementById('dropzone-{{ folder_key }}');
+  const input = document.getElementById('file-input-{{ folder_key }}');
+  const form = document.getElementById('form-{{ folder_key }}');
+  const uploadBtn = document.getElementById('upload-btn-{{ folder_key }}');
+
+  if (dz && input && form && uploadBtn) {
+    dz.addEventListener('click', () => input.click());
+
+    dz.addEventListener('dragover', e => {
+      e.preventDefault();
+      dz.classList.add('highlight');
+    });
+
+    dz.addEventListener('dragleave', () => {
+      dz.classList.remove('highlight');
+    });
+
+    dz.addEventListener('drop', e => {
+      e.preventDefault();
+      dz.classList.remove('highlight');
+      input.files = e.dataTransfer.files;
+      uploadBtn.style.display = 'inline-block';
+    });
+
+    input.addEventListener('change', () => {
+      const names = Array.from(input.files).map(f => f.name).join(', ');
+      dz.querySelector('p').textContent = names || 'Drag & drop files here or click to upload';
+      uploadBtn.style.display = input.files.length > 0 ? 'inline-block' : 'none';
+    });
+    form.addEventListener('submit', function (e) {
+    e.preventDefault(); // prevent default form submission
+
+    const file = input.files[0];
+    if (!file) return;
+
+    const xhr = new XMLHttpRequest();
+    const progressBar = document.getElementById('upload-progress');
+    const statusText = document.getElementById('upload-status');
+    const formData = new FormData();
+
+    formData.append('file', file);
+    progressBar.style.display = 'block';
+    statusText.textContent = `Uploading ${file.name}...`;
+
+    xhr.upload.addEventListener('progress', function (e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.value = percent;
+        statusText.textContent = `${file.name} – ${percent}%`;
+      }
+    });
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        progressBar.value = 100;
+        statusText.textContent = 'Upload complete. Reloading...';
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        statusText.textContent = 'Upload failed.';
+      }
+    };
+
+    xhr.open('POST', form.action);
+    xhr.send(formData);
+    });
+
+  }
+  // 🔍 File search by filename
+const searchBox = document.getElementById('search-input');
+if (searchBox) {
+  searchBox.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.list-item').forEach(el => {
+      const name = el.querySelector('.filename')?.textContent.toLowerCase() || "";
+      el.style.display = name.includes(query) ? '' : 'none';
+    });
+  });
+}
+
+</script>
+
+
+</body>
+</html>

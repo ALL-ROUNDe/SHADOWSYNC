@@ -1,0 +1,573 @@
+body {
+  background: url("../images/night-sky.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width: 120px;
+  margin-top: 20px;
+  border-radius: 50%;
+  animation: glowPulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px 5px white;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px 2px white;
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px white;
+  }
+}
+
+
+
+h1 {
+  font-size: 48px;
+  margin-top: 10px;
+  text-shadow: 0 0 20px white;
+}
+
+.upload-section {
+  background: rgba(0, 0, 0, 0.6);
+  margin: 30px auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 12px;
+  border: 1px solid #999;
+  box-shadow: 0 0 20px white;
+}
+
+.upload-section h2 {
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px white;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label.button {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin: 10px;
+  text-shadow: 0 0 8px white;
+}
+
+label.button:hover {
+  background: white;
+  color: black;
+  text-shadow: none;
+}
+
+.file-name {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.progress-wrapper {
+  margin: 10px 0;
+}
+
+progress {
+  width: 100%;
+  height: 20px;
+}
+
+button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ccc;
+}
+
+ul {
+  text-align: left;
+  margin-top: 15px;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #aaa;
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.flash {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin: 10px auto;
+  width: fit-content;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-shadow: 0 0 5px white;
+}
+h2 {
+  font-size: 28px;
+  text-shadow: 0 0 8px white;
+  margin-top: 30px;
+}
+
+.folder-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+.folder-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.folder-list li {
+  margin: 10px 0;
+}
+
+.folder-list a {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 0 4px white;
+  transition: color 0.3s;
+}
+
+.folder-list a:hover {
+  color: #ccc;
+  text-shadow: 0 0 10px white;
+}
+.navbar-links {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  text-shadow: 0 0 4px white;
+}
+
+.navbar-links a:hover {
+  color: #ccc;
+}
+.folder-list a {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  text-shadow: 0 0 6px white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.folder-list a:hover {
+  background-color: white;
+  color: black;
+  text-shadow: none;
+  box-shadow: 0 0 12px white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+  margin: 20px auto;
+  color: white;
+  width: 220px;
+}
+
+.container .label {
+  font-size: 15px;
+  padding-left: 10px;
+  position: absolute;
+  top: 13px;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  height: 45px;
+  border: none;
+  outline: none;
+  padding: 0px 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  background-color: transparent;
+  box-shadow: 3px 3px 10px rgba(0,0,0,1),
+              -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+.input:focus {
+  border: 2px solid transparent;
+  color: #fff;
+  box-shadow: 3px 3px 10px rgba(0,0,0,1),
+              -1px -1px 6px rgba(255, 255, 255, 0.4),
+              inset 3px 3px 10px rgba(0,0,0,1),
+              inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+.container .input:valid ~ .label,
+.container .input:focus ~ .label {
+  padding-left: 2px;
+  transform: translateY(-35px);
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  text-shadow: 0 0 4px white;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.list-item span,
+.list-item a {
+  font-size: 14px;
+  margin-right: 10px;
+  color: white;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.role {
+  font-style: italic;
+  color: #ccc;
+}
+
+.download-btn,
+.delete-btn {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.download-btn:hover,
+.delete-btn:hover {
+  background: white;
+  color: black;
+}
+.delete-btn {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: white;
+  color: black;
+}
+
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .navbar-links {
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .folder-list a {
+    font-size: 14px;
+    padding: 10px 16px;
+    margin: 6px;
+  }
+
+  .list-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .list-item span, .list-item a, .list-item button {
+    font-size: 13px;
+  }
+
+  .container, .upload-section {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+.admin-summary-box {
+  margin: 40px auto;
+  max-width: 600px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+  border-radius: 10px;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  text-align: left;
+  color: #eee;
+  text-shadow: 0 0 3px white;
+}
+
+.admin-summary-box h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px white;
+}
+
+.summary-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.summary-scroll ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.summary-scroll li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Toggle Button */
+#sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  z-index: 1100;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-shadow: 0 0 5px white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+}
+
+#sidebar-toggle:hover {
+  background: white;
+  color: black;
+  text-shadow: none;
+}
+
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  padding-top: 30px;
+  box-shadow: 2px 0 10px rgba(255, 255, 255, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-shadow: 0 0 5px white;
+}
+
+.sidebar a {
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: 0.2s;
+  font-size: 15px;
+  text-shadow: 0 0 3px white;
+}
+
+.sidebar a:hover {
+  background: white;
+  color: black;
+  text-shadow: none;
+}
+
+.main-content {
+  margin-left: 0;
+  padding: 30px;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.show ~ .main-content {
+  margin-left: 220px;
+}
+
+#about-block {
+  margin: 50px auto 0;
+  padding: 20px;
+  max-width: 600px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  color: #ccc;
+  text-shadow: 0 0 4px white;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+
+#about-block.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#about-block h3 {
+  margin-bottom: 10px;
+  color: white;
+  text-shadow: 0 0 5px white;
+}
+
+.search-box {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  width: 200px;
+  box-shadow: 0 0 8px white;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.upload-dropzone {
+  border: 2px dashed white;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 20px 0;
+  color: white;
+  text-shadow: 0 0 4px white;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-dropzone:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+select[name="role"] {
+  width: 220px;
+  height: 45px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #555;
+  box-shadow:
+    3px 3px 10px rgba(0,0,0,1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+  appearance: none;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+select[name="role"]:hover {
+  border-color: white;
+}
+
+select[name="role"]:focus {
+  box-shadow:
+    3px 3px 10px rgba(0,0,0,1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4),
+    inset 2px 2px 6px rgba(0,0,0,1),
+    inset -1px -1px 4px rgba(255, 255, 255, 0.3);
+}
+
+.container label[for="role"] {
+  margin-bottom: 4px;
+  padding-left: 10px;
+  font-size: 15px;
+  color: #ccc;
+}
