@@ -3,17 +3,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os, time, json
 from functools import wraps
-import os
 from ftplib import FTP
 import io
 
 app = Flask(__name__)
-app.secret_key = 'momo7777'
+app.secret_key = 'secreat_pass'
 
 # --- FOLDER SETUP ---
-BASE_DIR = '/home/shadowroot/share/uploads'  # Change this to your target upload location
+BASE_DIR = '/share/uploads'  # Change this to your target upload location
 FOLDERS = {
-    'movies': os.path.join(BASE_DIR, 'movies'),
+    'movies': os.path.join(BASE_DIR, 'movies'),     # you can change this
     'allfiles': os.path.join(BASE_DIR, 'allfiles')
 }
 for path in FOLDERS.values():
